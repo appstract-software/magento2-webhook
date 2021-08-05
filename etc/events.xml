@@ -72,4 +72,7 @@
     <event name="newsletter_subscriber_save_after">
         <observer name="mp_wh_subscriber" instance="Mageplaza\Webhook\Observer\Subscriber"/>
     </event>
+    <event name="update_stock">
+        <observer name="mp_wh_update_stock" instance="Mageplaza\Webhook\Observer\BeforeStockItem"/>
+    </event>
 </config>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mageplaza
  *
@@ -47,6 +48,7 @@ class HookType implements ArrayInterface
     const SUBSCRIBER = 'subscriber';
     //    const UPDATE_CART = 'update_cart';
     const ABANDONED_CART = 'abandoned_cart';
+    const UPDATE_STOCK = 'update_stock';
 
     /**
      * Options getter
@@ -90,6 +92,7 @@ class HookType implements ArrayInterface
             self::DELETE_CATEGORY => 'Delete Category',
             self::CUSTOMER_LOGIN => 'Customer Login',
             self::SUBSCRIBER => 'Subscriber',
+            self::UPDATE_STOCK => 'Update Stock',
             //            self::UPDATE_CART => 'Update cart',
             self::ABANDONED_CART => 'Abandoned Cart',
         ];

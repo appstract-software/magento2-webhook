@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mageplaza
  *
@@ -41,6 +42,7 @@ use Magento\Sales\Model\ResourceModel\Order\Status\History as OrderStatusResourc
 use Mageplaza\Webhook\Block\Adminhtml\LiquidFilters;
 use Mageplaza\Webhook\Model\Config\Source\HookType;
 use Mageplaza\Webhook\Model\HookFactory;
+use Magento\Inventory\Model\ResourceModel\Source;
 
 /**
  * Class Body
@@ -57,6 +59,11 @@ class Body extends Element
      * @var OrderFactory
      */
     protected $orderFactory;
+
+    /**
+     * @var Source
+     */
+    protected $source;
 
     /**
      * @var LiquidFilters
@@ -151,6 +158,7 @@ class Body extends Element
         LiquidFilters $liquidFilters,
         HookFactory $hookFactory,
         Subscriber $subscriber,
+        Source $source,
         Address $addressResource,
         array $data = []
     ) {
@@ -166,6 +174,7 @@ class Body extends Element
         $this->categoryFactory     = $categoryFactory;
         $this->quoteResource       = $quoteResource;
         $this->subscriber          = $subscriber;
+        $this->source              = $source;
         $this->addressResource     = $addressResource;
 
         parent::__construct($context, $data);
@@ -209,6 +218,7 @@ class Body extends Element
     public function getHookAttrCollection()
     {
         $hookType = $this->getHookType();
+
 
         switch ($hookType) {
             case HookType::NEW_ORDER_COMMENT:
@@ -259,6 +269,11 @@ class Body extends Element
             case HookType::SUBSCRIBER:
                 $collectionData = $this->subscriber->getConnection()
                     ->describeTable($this->subscriber->getMainTable());
+                $attrCollection = $this->getAttrCollectionFromDb($collectionData);
+                break;
+            case HookType::UPDATE_STOCK:
+                $collectionData = $this->source->getConnection()
+                    ->describeTable($this->source->getMainTable());
                 $attrCollection = $this->getAttrCollectionFromDb($collectionData);
                 break;
             default:

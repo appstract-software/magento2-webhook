@@ -1,5 +1,5 @@
 {
-  "name": "mageplaza/module-webhook",
+  "name": "appstract-software/magento2-webhook",
   "description": "Magento 2 Webhook Extension",
   "require": {
     "mageplaza/module-core": "^1.4.5",
